@@ -1,12 +1,11 @@
-﻿namespace NatureStoreApi.DTOs
-{
-    public record UpdateVegetableDto
-    {
-        public string Name { get; init; } = string.Empty;
-        public string Origin { get; init; } = string.Empty;
-        public decimal Price { get; init; }
-        public bool RipeOrNot { get; init; }
-        public DateOnly DateAvailable { get; init; }
-    }
+﻿// Structural record type change for updating a vegetable, inheriting from CreateVegetableDto
+using NatureStoreApi.DTOs;
 
-}
+public record UpdateVegetableDto(
+    string? Name,
+    string? Description,
+    string? Origin,
+    bool RipeOrNot,
+    DateOnly DateAvailable,
+    decimal Price
+) : CreateVegetableDto(Name, Description, Origin, RipeOrNot, DateAvailable, Price);
