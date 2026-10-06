@@ -17,7 +17,7 @@ namespace NatureStoreApi.Controllers
             _context = context;
         }
 
-        // GET: api/Vegetable?name=tomato&origin=local&minPrice=10&maxPrice=100
+        // GET: api/Vegetable get method that also filters 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VegetableDto>>> GetVegetables(
             [FromQuery] string? name,
@@ -118,46 +118,46 @@ namespace NatureStoreApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVegetable(int id, [FromBody] UpdateVegetableDto updateDto)
         {
-            // 1. Fetch the existing entity tracking from the database
+            // Fetch the existing entity tracking from the database
             var vegetable = await _context.Vegetables.FindAsync(id);
 
-            // 2. Return a 404 if the vegetable doesn't exist
+            // Return a 404 if the vegetable doesn't exist
             if (vegetable == null)
             {
                 return NotFound();
             }
 
-            // 3. Map the updated record properties onto the tracked entity
+            // Mapping updated record properties onto the tracked entity
             vegetable.Name = updateDto.Name;
             vegetable.Origin = updateDto.Origin;
             vegetable.Price = updateDto.Price;
             vegetable.RipeOrNot = updateDto.RipeOrNot;
             vegetable.DateAvailable = updateDto.DateAvailable;
 
-            // 4. Persist changes to the database
+            // Persist changes to the database
             await _context.SaveChangesAsync();
 
-            // 5. Return 204 No Content as the update succeeded without needing a return body
+            // Returning 204 No Content as the update succeeded without needing a return body
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVegetable(int id)
         {
-            // Step 1: Look up the vegetable entity in the database
+            // Look up the vegetable entity in the database
             var vegetable = await _context.Vegetables.FindAsync(id);
 
-            // Step 2: Return 404 Not Found if the record doesn't exist
+            // Return 404 Not Found if the record doesn't exist
             if (vegetable == null)
             {
                 return NotFound();
             }
 
-            // Step 3: Remove the record and commit changes asynchronously
+            // Remove the record and commit changes asynchronously
             _context.Vegetables.Remove(vegetable);
             await _context.SaveChangesAsync();
 
-            // Step 4: Return 204 No Content on success
+            // Return 204 No Content on successful deletion
             return NoContent();
         }
 
