@@ -15,10 +15,6 @@ namespace NatureStoreApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Vegetable>()
-                .Property(v => v.Price)
-                .HasColumnType("decimal(18,2)");
         }
     }
 }
